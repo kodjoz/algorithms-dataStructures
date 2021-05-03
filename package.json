@@ -1,0 +1,30 @@
+{
+  "name": "leetcode-problems",
+  "version": "1.0.0",
+  "description": "My leetcode problems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodjoz/leetcode-problems.git"
+  },
+  "keywords": [
+    "leetcode",
+    "eslint",
+    "toy",
+    "problems"
+  ],
+  "author": "Zach Kodjo",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kodjoz/leetcode-problems/issues"
+  },
+  "homepage": "https://github.com/kodjoz/leetcode-problems#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}
