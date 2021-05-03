@@ -1,4 +1,4 @@
-# Richest customer wealth
+// Richest customer wealth
 
 var maximumWealth = function(accounts) {
     var richestCustomer = 0
