@@ -92,10 +92,52 @@ class LinkedList {
     previous.next = node;
   }
   // Get from index
+  getAt(index) {
+    let current = this.head;
+    let count = 0;
+    while (current) {
+      if (count === index) {
+        console.log(current.value);
+      }
+
+      count += 1;
+      current = current.next;
+    }
+
+    return null;
+  }
 
   // Remove from index
+  removeAt(index) {
+    if (index > 0 && index > this.size) {
+      return;
+    }
+
+    let current = this.head;
+    let previous;
+    let count = 0;
+
+    if (index === 0) {
+      this.head = current.next;
+    } else {
+      while (count < index) {
+        count += 1;
+        previous = current;
+        current = current.next
+      }
+
+      previous.next = current.next;
+    }
+
+    this.size -= 1;
+  }
 
   // Clear list
+  clear() {
+    // erases list
+    this.head = null;
+    this.size = 0;
+  }
 
   // Print list data
   printData() {
@@ -107,13 +149,17 @@ class LinkedList {
   }
 }
 
-const nodeOne = new Node(100);
-const nodeTwo = new Node(200);
+// const nodeOne = new Node(100);
+// const nodeTwo = new Node(200);
 
 const linkedList = new LinkedList();
 linkedList.insert(100);
 linkedList.insert(200);
 linkedList.insert(300);
 linkedList.insertLast(400);
+//linkedList.printData();
+//linkedList.insertAt(500, 8);
 //console.log(linkedList);
-linkedList.printData();
+//linkedList.printData();
+//linkedList.getAt(2)
+linkedList.clear();
