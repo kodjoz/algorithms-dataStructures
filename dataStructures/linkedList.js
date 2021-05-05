@@ -26,8 +26,94 @@ class Node {
   }
 }
 
+// The Linked List
+class LinkedList {
+  constructor(head = null, size = 0) {
+    this.head = head;
+    this.size = size;
+  }
+
+  // Methods
+
+  // Insert at first node
+  insert(value) {
+    // if something is in the head already this pushes it to next
+    this.head = new Node(value, this.head);
+    this.size += 1;
+  }
+  // Insert last node
+  insertLast(value) {
+    const node = new Node(value);
+    let current;
+    // if list is empty then this node is now the head
+    if (!this.head) {
+      this.head = node;
+    } else {
+      current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+
+      current.next = node;
+    }
+
+    this.size += 1;
+  }
+
+  // Insert at index
+  insertAt(value, index) {
+    // bad index
+    if (index > 0 && index > this.size) {
+      return;
+    }
+
+    // if index is zero
+    if (index === 0) {
+      return this.head = new Node(value, this.head);
+    }
+
+    const node = new Node(value);
+    let current, previous;
+
+    // set current to first
+    current = this.head;
+    let count = 0;
+
+    while (count < index) {
+      // move to temp storage
+      previous = current;
+      // increment
+      count += 1;
+      // current is now the next node
+      current = current.next;
+    }
+
+    node.next = current;
+    previous.next = node;
+  }
+  // Get from index
+
+  // Remove from index
+
+  // Clear list
+
+  // Print list data
+  printData() {
+    let node = this.head;
+    while (node) {
+      console.log(node.value);
+      node = node.next;
+    }
+  }
+}
+
 const nodeOne = new Node(100);
 const nodeTwo = new Node(200);
 
-console.log(nodeOne);
-console.log(nodeTwo);
+const linkedList = new LinkedList();
+linkedList.insert(100);
+linkedList.insert(200);
+linkedList.insert(300);
+linkedList.insertLast(400);
+//console.log(linkedList);
+linkedList.printData();
