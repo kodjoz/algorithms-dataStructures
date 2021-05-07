@@ -28,12 +28,58 @@ The numeric answer should be typed in the space below.  So if your answer is 119
 // E: If one of the integers is zero just skip to the end -> answer is zero
 
 const karatsuba = (intOne, intTwo) => {
+  intOne = intOne.toString();
+  intTwo = intTwo.toString();
+  // split our integers into pieces a, b, c, d
+  const alpha = Number(intOne.slice(0, Math.floor(intOne.length / 2)));
+  const bravo = Number(intOne.slice(Math.floor(intOne.length / 2)));
+  const charlie = Number(intTwo.slice(0, Math.floor(intTwo.length / 2)));
+  const delta = Number(intTwo.slice(Math.floor(intTwo.length / 2)));
 
+  // comppute a * c
+  const alphaCharlie = alpha * charlie;
+  console.log(`Step One: ${alphaCharlie}`);
+  const aCLength = alphaCharlie.toString().length;
+  // compute b * d
+  const bravoDelta = bravo * delta;
+  const bDLength = bravoDelta.toString().length;
+  console.log(`Step Two: ${bravoDelta}`);
+  // compute (a + b)(c + d)
+  const alphaBravoCharlieDelta = (alpha + bravo) * (charlie + delta);
+  console.log(`Step Three: ${alphaBravoCharlieDelta}`);
+  // compute (a * c) - (b * d) - (a+b)(c+d)
+  const stepFour = alphaBravoCharlieDelta - bravoDelta - alphaCharlie;
+  console.log(`Step Four: ${stepFour}`);
+  // pad the first number with enough zeroes to where the length is equal to the number of 10s place of both digits -> e.g. there are 8 digits so multiple a * c by 10 ^ (total digits - length of a * c - 1)
+  const grossLength = intOne.toString().length + intTwo.toString().length;
+  console.log(`Length of new number, ${grossLength}`);
+  const sumOne = alphaCharlie * (10 ** (grossLength - aCLength - 1));
+  console.log(`Step Five part 1: ${sumOne}`);
+  const sumThree = stepFour * (10 ** (Math.floor((grossLength - aCLength - 1) / 2)));
+  console.log(`Step Five part 2: ${bravoDelta}`);
+  console.log(`Steph Five part three: ${sumThree}`);
+  // don't pad the middle number
+  return sumOne + bravoDelta + sumThree;
+  // pad the third number with half the number of zeroes of the first number
+
+  // return the sum of the three numbers
+
+
+
+
+  //console.log(`Alpha: ${alpha}, Bravo: ${bravo}, Charlie: ${charlie}, Delta: ${delta}`);
 }
 
-const integerOne = 3141592653589793238462643383279502884197169399375105820974944592;
-const integerTwo = 2718281828459045235360287471352662497757247093699959574966967627;
+const promptIntegers = [3141592653589793238462643383279502884197169399375105820974944592, 2718281828459045235360287471352662497757247093699959574966967627];
 
-console.log("Multiply the numbers the simple way", integerOne * integerTwo);
+const testOne = [1234, 5678];
+const testTwo = [12345, 678];
 
-console.log("Multiply the numbers with Karatsuba multiplication", karatsuba(integerOne, integerTwo));
+// console.log("Multiply the numbers the simple way", promptIntegers[0] * promptIntegers[1]);
+//console.log(`Test one: ${testOne[0] * testOne[1]}`);
+// console.log(karatsuba(testOne[0], testOne[1]));
+
+// console.log(`testTwo: ${testTwo[0] * testTwo[1]}`);
+// console.log("Test Two", karatsuba(testTwo[0], testTwo[1]));
+
+karatsuba(promptIntegers[0], promptIntegers[1]);
