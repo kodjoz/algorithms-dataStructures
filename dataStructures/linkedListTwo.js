@@ -16,13 +16,14 @@ void deleteAtIndex(int index) Delete the indexth node in the linked list, if the
  */
 var MyLinkedList = function() {
   this.head = null;
-  this.next = null;
   this.tail = null;
 };
 
-const Node = (val = null) => {
-  this.val = val;
-  this.next = null;
+class Node {
+  constructor(val = null) {
+    this.val = val;
+    this.next = null;
+  }
 }
 
 /**
@@ -40,12 +41,17 @@ MyLinkedList.prototype.get = function(index) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtHead = function(val) {
+  // if no tail then set new value
   // take what's at the head and move to temp
   const cache = this.head;
   // set this.head to new node
   this.head = new Node(val);
   // set node.next to temp
   this.head.next = cache;
+
+  if (!this.tail) {
+    this.tail = this.head;
+  }
 };
 
 /**
@@ -91,3 +97,10 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
  * obj.addAtIndex(index,val)
  * obj.deleteAtIndex(index)
  */
+
+let ll = new MyLinkedList();
+ll.addAtHead(1);
+ll.addAtTail(2);
+
+console.log(ll);
+
