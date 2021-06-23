@@ -98,8 +98,39 @@ MyLinkedList.prototype.addAtTail = function(val) {
  * @param {number} val
  * @return {void}
  */
-MyLinkedList.prototype.addAtIndex = function(index, val) {
+MyLinkedList.prototype.addAtIndex = function(index, val) { // index = 1, val = 2
+  if (index < 0) return;
 
+  if (index === 0) {
+    return this.addAtHead(val);
+  }
+  // create a new node with the value
+  const newNode = new Node(val); // newNode.val = 2, newNode.next = null
+  // temp storage for current node, previous node
+  // create counter
+  let counter = 0; // 0
+  let current = this.head; // head.val = 1, head.next = null
+  let previous = this.head; // head.val = 1, head.next = null
+  // while temp !== null
+  while (current !== null) { // current = head, therefore not null
+    // if counter === index
+    if (counter === index) { // counter = 0, does not equal index
+      // newNode.next = current
+      // previous.next = newNode
+      newNode.next = current;
+      previous.next = newNode;
+
+    }
+    previous = current; // previous = head
+    current = current.next; // current = null
+    counter += 1; // counter = 1
+  }
+
+  if (index === counter) {
+    this.addAtTail(val);
+  } else {
+    return;
+  }
 };
 
 /**
@@ -122,13 +153,19 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
  */
 
 let ll = new MyLinkedList();
-ll.addAtHead(1);
-ll.addAtTail(2);
-ll.addAtHead(3); // expect this.head = 3
+// ll.addAtHead(1);
+// ll.addAtTail(2);
+// ll.addAtHead(3); // expect this.head = 3
 
-console.log(ll.get(0)); // expect 3
-console.log(ll.get(-1)); // index is less than length of list expect -1 back
-console.log(ll.get(4)); // index is greater than length of list expect -1
-console.log(ll.get(2));
+// console.log(ll.get(0)); // expect 3
+// console.log(ll.get(-1)); // index is less than length of list expect -1 back
+// console.log(ll.get(4)); // index is greater than length of list expect -1
+// console.log(ll.get(2));
 
+/* Test addAtIndex */
+ll.addAtHead(1); // expect this works
+ll.addAtHead(2);
+ll.addAtIndex(1, 3); // expect new node at 2
+console.log(ll.get(1)); // expect val = 2
+console.log(ll);
 
