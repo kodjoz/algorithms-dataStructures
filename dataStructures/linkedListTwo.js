@@ -32,7 +32,30 @@ class Node {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
+  // ** if index is < 0,
+  if (index < 0) {
+    // return -1
+    return -1;
+  }
+  // create counter starts at 0
+  let counter = 0;
+  // temp storage =this.head
+  let temp = this.head;
 
+  // create while loop over ll
+  // while temp.next is not null
+  while (temp !== null) {
+    // if counter deeply equals index
+    if (counter === index) {
+      // return temp.val;
+      return temp.val;
+    }
+    temp = temp.next;
+    // increment counter += 1
+    counter++;
+  }
+
+  return -1;
 };
 
 /**
@@ -101,6 +124,11 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
 let ll = new MyLinkedList();
 ll.addAtHead(1);
 ll.addAtTail(2);
+ll.addAtHead(3); // expect this.head = 3
 
-console.log(ll);
+console.log(ll.get(0)); // expect 3
+console.log(ll.get(-1)); // index is less than length of list expect -1 back
+console.log(ll.get(4)); // index is greater than length of list expect -1
+console.log(ll.get(2));
+
 
