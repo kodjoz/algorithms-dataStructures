@@ -82,9 +82,41 @@ class SinglyLinkedList {
 
   unshift(val) {
     const newNode = new Node(val); // store new node
-    newNode.next = this.head; // next property is old head value
-    this.head = newNode; // head is now new node
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      newNode.next = this.head; // next property is old head value, need to control for case where list is empty
+      this.head = newNode; // head is now new node
+    }
+
+    this.length += 1; // increment list
     return this;
+  }
+
+  get(index) {
+    if (!this.head) {
+      return null;
+    }
+    // edge case # 2
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    let current = this.head;
+    let counter = 0;
+
+    while (current) {
+      if (counter === index) {
+        return current.val;
+      } else {
+        current = current.next;
+        counter += 1;
+      }
+    }
+
+    return undefined;
+
   }
 }
 
@@ -107,7 +139,24 @@ let list = new SinglyLinkedList();
 // console.log(list.shift()); // expect 'Bravo'
 // console.log(list); // expect tail to be null
 
-/* Test 4 - Unshift */
+// /* Test 4 - Unshift */
+// list.push('bravo');
+// list.unshift('alpha');
+// console.log(list); // expect nodes alpha, bravo
+
+// /* Test 5 - Unshift */
+// list.pop();
+// list.pop();
+// list.unshift('charlie');
+// console.log(list);
+
+/* Test 6 - Get (at index) */
+list.push('alpha');
 list.push('bravo');
-list.unshift('alpha');
-console.log(list); // expect nodes alpha, bravo
+list.push('charlie');
+console.log(list.get(2)); // expect charlie
+list.pop();
+list.pop();
+list.pop();
+list.push('delta');
+console.log(list.get(0)); //expect delta
