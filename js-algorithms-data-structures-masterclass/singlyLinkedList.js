@@ -22,7 +22,6 @@ class SinglyLinkedList {
 
   push(val) {
     const newNode = new Node(val);
-
     if (!this.head) {
       this.head = newNode;
       this.tail = this.head;
@@ -73,7 +72,6 @@ class SinglyLinkedList {
     this.head = this.head.next;
     // return shifted value
     this.length -= 1;
-
     if (this.length === 0) { // without this the tail will not be empty which could cause weird behavior
       this.tail = null;
     }
@@ -89,7 +87,6 @@ class SinglyLinkedList {
       newNode.next = this.head; // next property is old head value, need to control for case where list is empty
       this.head = newNode; // head is now new node
     }
-
     this.length += 1; // increment list
     return this;
   }
@@ -108,15 +105,53 @@ class SinglyLinkedList {
 
     while (current) {
       if (counter === index) {
-        return current.val;
+        return current;
       } else {
         current = current.next;
         counter += 1;
       }
     }
-
     return undefined;
+  }
 
+  set(index, val) {
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+    return false;
+  }
+
+  insert(index, val) {
+    // if index < 0 or > length return false
+    if (index > this.length || index < 0) {
+      return false;
+    }
+
+    // if index is same length insert at end
+    if (index === this.length) {
+      this.push(val);
+      return true;
+    }
+
+    // if index is 0 unshift
+    if (index === 0) {
+      this.unshift(val);
+      return true;
+    }
+
+    // call get at index - 1
+    let previous = this.get(index - 1);
+    let current = this.get(index);
+    let newNode = new Node(val);
+    newNode.next = current;
+    previous.next = newNode;
+    this.length += 1;
+    return true;
+    // set next is new node
+    // connect new node to old next node
+    // increment length, return true
   }
 }
 
@@ -151,12 +186,30 @@ let list = new SinglyLinkedList();
 // console.log(list);
 
 /* Test 6 - Get (at index) */
-list.push('alpha');
-list.push('bravo');
-list.push('charlie');
-console.log(list.get(2)); // expect charlie
-list.pop();
-list.pop();
-list.pop();
-list.push('delta');
-console.log(list.get(0)); //expect delta
+// list.push('alpha');
+// list.push('bravo');
+// list.push('charlie');
+// console.log(list.get(2)); // expect charlie
+// list.pop();
+// list.pop();
+// list.pop();
+// list.push('delta');
+// console.log(list.get(0)); //expect delta
+
+/* Test 7 - Set */
+// list.push('echo');
+// list.push('foxtrot');
+// list.push('golf');
+// console.log(list.get(2)); // expect golf
+// console.log(list.set(2, 'hotel')); // expect true
+// console.log(list.set(3, 'india')); // expect false
+
+/* Test 8 - Insert */
+list.push('india');
+list.push('juliet');
+list.push('kilo')
+console.log(list.insert(1, 'lima'));
+console.log(list);
+list.insert(0, 'mike');
+list.insert(5, 'november');
+console.log(list);
