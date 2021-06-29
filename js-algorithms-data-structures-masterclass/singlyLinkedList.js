@@ -125,27 +125,15 @@ class SinglyLinkedList {
 
   insert(index, val) {
     // if index < 0 or > length return false
-    if (index > this.length || index < 0) {
-      return false;
-    }
-
+    if (index > this.length || index < 0) return false;
     // if index is same length insert at end
-    if (index === this.length) {
-      this.push(val);
-      return true;
-    }
-
+    if (index === this.length) return this.push(val);
     // if index is 0 unshift
-    if (index === 0) {
-      this.unshift(val);
-      return true;
-    }
-
+    if (index === 0) return this.unshift(val);
     // call get at index - 1
     let previous = this.get(index - 1);
-    let current = this.get(index);
     let newNode = new Node(val);
-    newNode.next = current;
+    newNode.next = previous.next
     previous.next = newNode;
     this.length += 1;
     return true;
