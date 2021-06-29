@@ -127,9 +127,9 @@ class SinglyLinkedList {
     // if index < 0 or > length return false
     if (index > this.length || index < 0) return false;
     // if index is same length insert at end
-    if (index === this.length) return this.push(val);
+    if (index === this.length) return !!this.push(val); // doubly negates the return value
     // if index is 0 unshift
-    if (index === 0) return this.unshift(val);
+    if (index === 0) return !!this.unshift(val);
     // call get at index - 1
     let previous = this.get(index - 1);
     let newNode = new Node(val);
@@ -140,6 +140,24 @@ class SinglyLinkedList {
     // set next is new node
     // connect new node to old next node
     // increment length, return true
+  }
+
+  remove(index) {
+    // if index is less than zero or greater than lenght return undefined
+    if (index >= this.length || index < 0) return undefined;
+    // if index is same as length - 1, pop
+    if (index === this.length - 1) return this.pop();
+    // if index is 0, shift
+    if (index === 0) return this.shift();
+    // otherwise get node at index - 1
+    let temp = this.get(index - 1);
+    let removed = temp.next;
+    // update next property
+    temp.next = removed.next;
+    // reduce length
+    this.length -= 1;
+    // return removed node
+    return removed.val;
   }
 }
 
@@ -192,12 +210,21 @@ let list = new SinglyLinkedList();
 // console.log(list.set(2, 'hotel')); // expect true
 // console.log(list.set(3, 'india')); // expect false
 
-/* Test 8 - Insert */
-list.push('india');
-list.push('juliet');
-list.push('kilo')
-console.log(list.insert(1, 'lima'));
-console.log(list);
-list.insert(0, 'mike');
-list.insert(5, 'november');
-console.log(list);
+// /* Test 8 - Insert */
+// list.push('india');
+// list.push('juliet');
+// list.push('kilo')
+// console.log(list.insert(1, 'lima'));
+// console.log(list);
+// list.insert(0, 'mike');
+// list.insert(5, 'november');
+// console.log(list);
+
+/* Test 9 - Remove */
+list.push('oscar'); // 4
+list.push('papa'); // 3
+list.push('quebec'); // 2
+list.push('romeo'); // 1
+console.log(list.remove(1)); // expect papa
+console.log(list.remove(0)); // expect oscar
+console.log(list.remove(1)); // expect romeo
